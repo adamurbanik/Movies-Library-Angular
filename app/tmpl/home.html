@@ -1,0 +1,10 @@
+<div class="">
+    <div class="row movies-list">
+        <div class="col-md-4" ng-repeat="movie in movies | orderBy:'name':true | filter:search">
+            <h2>{{movie.name | uppercase}}</h2>
+            <p>
+                <img ng-src="{{movie.thumb}}" class="thumb-big">
+                <p>
+        </div>
+    </div>
+</div>

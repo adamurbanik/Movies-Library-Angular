@@ -1,1 +1,1 @@
-console.log('hello');
+window.libraryApp = angular.module('libraryApp', ['ui.router']);
