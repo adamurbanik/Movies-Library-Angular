@@ -10,7 +10,7 @@ var managePlayerYT = (function () {
 
   function createPlayerOptions(config, videoID) {
     _playerOptions = {};
-    _playerOptions.width= config.videoWidth;
+    _playerOptions.width = config.videoWidth;
     _playerOptions.height = config.videoHeight;
     _playerOptions.videoId = videoID;
     _playerOptions.events = {
@@ -29,6 +29,7 @@ var managePlayerYT = (function () {
 
   function createYTPlayer() {
     _player = new YT.Player('player', _playerOptions);
+
   }
 
   function initializePlayer(config, videoID) {
@@ -38,7 +39,7 @@ var managePlayerYT = (function () {
 
   // 3. This function creates an <iframe> (and YouTube player)
   //    after the API code downloads.
-  function onYouTubeIframeAPIReady() {}
+  function onYouTubeIframeAPIReady() { }
 
   // 4. The API will call this function when the video player is ready.
   function onPlayerReady(event) {
@@ -53,20 +54,82 @@ var managePlayerYT = (function () {
   function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.PLAYING) {
       setTimeout(stopVideo, 6000);
-      var videoData = event.target.getVideoData();
-      videoData.source = "youtube";
-      videoData.thumb = "http://img.youtube.com/vi/"+videoData.video_id+"/0.jpg";
+      // var videoData = event.target.getVideoData();
+      // videoData.source = "youtube";
+      // videoData.thumb = "http://img.youtube.com/vi/" + videoData.video_id + "/0.jpg";
       // libraryManagement.addToCollection(videoData);
     }
   }
+  var videoData;
+  function prepareVideo(config, linkID) {
+    return new Promise(function (succeed, fail) {
+      if (typeof _iFrame === "undefined") {
+        _playerOptions = {};
+        _playerOptions.width = config.videoWidth;
+        _playerOptions.height = config.videoHeight;
+        _playerOptions.videoId = linkID;
+        _playerOptions.events = {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        };
+      }
+      _player = new YT.Player('player', _playerOptions);
+      _player.addEventListener("onStateChange", function (event) {
+        if (event.data == YT.PlayerState.PLAYING) {
+          console.log("player on state changed");
+          var videoData = event.target.getVideoData();
+          videoData.source = "youtube";
+          videoData.thumb = "http://img.youtube.com/vi/" + videoData.video_id + "/0.jpg";
+          succeed(videoData);
+        }
+      });
+
+    });
+  }
+  
+
+
+  // function playVideo(config, linkID) {
+  //   prepareVideo(config, linkID).then(function (text) {
+  //     return text;
+  //   });
+  // }
+
 
   function playVideo(config, linkID) {
-    if (typeof _iFrame === "undefined") {
-      initializePlayer(config, linkID);
-    }
-    else {
-      _player.loadVideoById(linkID);
-    }
+    return new Promise(function (succeed, fail) {
+      if (typeof _iFrame === "undefined") {
+        _playerOptions = {};
+        _playerOptions.width = config.videoWidth;
+        _playerOptions.height = config.videoHeight;
+        _playerOptions.videoId = linkID;
+        _playerOptions.events = {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        };
+        _player = new YT.Player('player', _playerOptions);
+        _player.addEventListener("onStateChange", function (event) {
+          if (event.data == YT.PlayerState.PLAYING) {
+            console.log("player on state changed");
+            var videoData = event.target.getVideoData();
+            videoData.source = "youtube";
+            videoData.thumb = "http://img.youtube.com/vi/" + videoData.video_id + "/0.jpg";
+            succeed(videoData);
+          }
+        });
+      }
+      else {
+        _player.loadVideoById(linkID);
+      }
+
+
+    });
+    // if (typeof _iFrame === "undefined") {
+    //   initializePlayer(config, linkID);
+    // }
+    // else {
+    //   _player.loadVideoById(linkID);
+    // }
     // var vimPlayer = document.getElementById("playerVimeo");
     // commonComponents.updateVideoPlayer("youtube");
   }
@@ -79,7 +142,7 @@ var managePlayerYT = (function () {
 
   function playCustomVideo(linkID) {
     _iFrame.src = "http://www.youtube.com/embed/" + linkID + "?autoplay=1"
-    frameborder="0";
+    frameborder = "0";
   }
 
   function isPlayerReady() {
@@ -99,7 +162,10 @@ var managePlayerYT = (function () {
     playVideo: playVideo,
     playCustomVideo: playCustomVideo,
     stopVideo: stopVideo,
-    isPlayerReady: isPlayerReady
+    isPlayerReady: isPlayerReady,
+    onPlayerStateChange: onPlayerStateChange,
+    prepareVideo: prepareVideo
+
 
   };
 

@@ -24,7 +24,15 @@ window.libraryApp.controller('inputController', ['$scope', 'libraryManagement', 
 
     var input = inputModel.inputHandler($scope.formData.movieLink);
     if (input.provider === "youtube" && input.videoID !== -1) {
-      managePlayerYT.playVideo(config, input.videoID);
+      // managePlayerYT.prepareVideo(config, input.videoID).then(function(text) {
+      //   console.log(text);     
+      // });
+      
+      managePlayerYT.playVideo(config, input.videoID).then(function(text) {
+        console.log(text);     
+      });
+      
+
     }
     // else if (input.provider === "vimeo" && input.videoID !== -1) {
     //   managePlayerVimeo.playVideo(config, input.videoID);
