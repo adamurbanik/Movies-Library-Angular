@@ -97,8 +97,9 @@ var managePlayerYT = (function () {
 
 
   function playVideo(config, linkID) {
-    return new Promise(function (succeed, fail) {
-      if (typeof _iFrame === "undefined") {
+    if (typeof _iFrame === "undefined") {
+      return new Promise(function (succeed, fail) {
+
         _playerOptions = {};
         _playerOptions.width = config.videoWidth;
         _playerOptions.height = config.videoHeight;
@@ -111,19 +112,37 @@ var managePlayerYT = (function () {
         _player.addEventListener("onStateChange", function (event) {
           if (event.data == YT.PlayerState.PLAYING) {
             console.log("player on state changed");
-            var videoData = event.target.getVideoData();
+            videoData = event.target.getVideoData();
             videoData.source = "youtube";
             videoData.thumb = "http://img.youtube.com/vi/" + videoData.video_id + "/0.jpg";
             succeed(videoData);
           }
         });
-      }
-      else {
+
+
+      });
+
+    }
+    else {
+      return new Promise(function (succeed, fail) {
         _player.loadVideoById(linkID);
-      }
+        _player.addEventListener("load", function (event) {
+          // if (event.data == YT.PlayerState.PLAYING) {
+          //   console.log("player on state changed");
+          //   videoData = event.target.getVideoData();
+          //   videoData.source = "youtube";
+          //   videoData.thumb = "http://img.youtube.com/vi/" + videoData.video_id + "/0.jpg";
+          //   succeed(videoData);
+          // }
+        });
+        
+        
+        // succeed(videoData);
+      });
 
-
-    });
+    }
+    
+    
     // if (typeof _iFrame === "undefined") {
     //   initializePlayer(config, linkID);
     // }
