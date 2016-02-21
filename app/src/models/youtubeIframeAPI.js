@@ -74,19 +74,12 @@ var managePlayerYT = (function () {
         };
       }
       _player = new YT.Player('player', _playerOptions);
-      _player.addEventListener("onStateChange", function (event) {
-        if (event.data == YT.PlayerState.PLAYING) {
-          console.log("player on state changed");
-          var videoData = event.target.getVideoData();
-          videoData.source = "youtube";
-          videoData.thumb = "http://img.youtube.com/vi/" + videoData.video_id + "/0.jpg";
-          succeed(videoData);
-        }
-      });
+      _player.addEventListener("onStateChange", playerStateHandler);
 
     });
   }
-  
+
+
 
 
   // function playVideo(config, linkID) {
@@ -111,38 +104,45 @@ var managePlayerYT = (function () {
         _player = new YT.Player('player', _playerOptions);
         _player.addEventListener("onStateChange", function (event) {
           if (event.data == YT.PlayerState.PLAYING) {
-            console.log("player on state changed");
+            console.log("player");
             videoData = event.target.getVideoData();
             videoData.source = "youtube";
             videoData.thumb = "http://img.youtube.com/vi/" + videoData.video_id + "/0.jpg";
             succeed(videoData);
           }
         });
-
-
       });
-
     }
     else {
       return new Promise(function (succeed, fail) {
-        _player.loadVideoById(linkID);
-        _player.addEventListener("load", function (event) {
-          // if (event.data == YT.PlayerState.PLAYING) {
-          //   console.log("player on state changed");
-          //   videoData = event.target.getVideoData();
-          //   videoData.source = "youtube";
-          //   videoData.thumb = "http://img.youtube.com/vi/" + videoData.video_id + "/0.jpg";
-          //   succeed(videoData);
-          // }
-        });
-        
-        
-        // succeed(videoData);
+
+       console.log(YT);
+
+        // player.loadVideoById(linkID);
+        // _iFrame.onload = function(event) {
+        //  console.log(event);
+        //   // var player = document.getElementById("player");
+        //   succeed(videoData);
+        // }
+        // _iFrame.src = "http://www.youtube.com/embed/" + linkID + "?autoplay=1";
+        // frameborder = "0";
+        //
+        // var adam = "adam";
+        // _player.addEventListener("onLoad", function(event) {
+        //  succeed(adam);
+        // });
+        //
+        // _player.loadVideoById(linkID);
+        //
+        // console.log(_player);
+
+
+
       });
 
     }
-    
-    
+
+
     // if (typeof _iFrame === "undefined") {
     //   initializePlayer(config, linkID);
     // }
@@ -151,6 +151,11 @@ var managePlayerYT = (function () {
     // }
     // var vimPlayer = document.getElementById("playerVimeo");
     // commonComponents.updateVideoPlayer("youtube");
+  }
+
+  function loadVideoById(linkID, callback) {
+   _player.loadVideoById(linkID);
+   callback();
   }
 
   function stopVideo() {
@@ -189,4 +194,3 @@ var managePlayerYT = (function () {
   };
 
 });
-
