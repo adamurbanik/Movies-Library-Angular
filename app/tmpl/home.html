@@ -1,9 +1,10 @@
 <div class="">
+  <a href=# class="btn btn-success" role="button" ng-disabled="getCount()===0" ng-click="eraseLibrary()">Wymaż bibliotekę</a>
     <div class="row movies-list">
         <div class="col-md-4" ng-repeat="movie in movies | orderBy:'name':true | filter:search">
             <h2>{{movie.name | uppercase}}</h2>
             <p>
-                <img ng-src="{{movie.thumb}}" class="thumb-big">
+                <img ng-src="{{movie.model.thumb}}" class="thumb-big">
             <p>
             
         </div>

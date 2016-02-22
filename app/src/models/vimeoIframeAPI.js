@@ -1,4 +1,4 @@
-managePlayerVimeo = (function() {
+var managePlayerVimeo = (function() {
 
   var _vimPlayer, _script, _playerYT;
 
@@ -28,18 +28,18 @@ managePlayerVimeo = (function() {
     videos.forEach(function(video) {
       console.log(video);
       var videoData = {
-        videoID: video["id"],
-        title: video["title"],
-        thumb: video["thumbnail_medium"],
-        author: video["user_name"],
+        videoID: video.id,
+        title: video.title,
+        thumb: video.thumbnail_medium,
+        author: video.user_name,
         source: "vimeo"
       };
-      myApp.libraryManagement.addToCollection(videoData);
+      // libraryManagement.addToCollection(videoData);
     });
   }
 
   function initializeJSONCallback() {
-    window["getData"] = getData;
+    window.getData = getData;
   }
 
   function loadVideoById(videoID) {
@@ -51,11 +51,11 @@ managePlayerVimeo = (function() {
     console.log(url);
     initScript(url);
 
-    if (typeof _vimPlayer === "undefined") {
+    if (typeof _vimPlayer === "undefined" || _vimPlayer === null) {
       initPlayer(config, videoID);
     }
     loadVideoById(videoID);
-    commonComponents.updateVideoPlayer("vimeo");
+    // commonComponents.updateVideoPlayer("vimeo");
 
   }
 

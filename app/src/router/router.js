@@ -8,7 +8,7 @@ window.libraryApp.config(function($stateProvider, $urlRouterProvider) {
            .state('root', {
             url: "/",
             templateUrl: 'tmpl/home.html',
-            controller: 'moviesController'
+            controller: 'inputController'
         })
         
         .state('addmovie', {

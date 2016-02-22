@@ -1,5 +1,7 @@
 var libraryManagement = (function () {
 
+  var movies = [];
+
   function createModel(videoData) {
     var model = {
       title: videoData.title,
@@ -20,7 +22,6 @@ var libraryManagement = (function () {
 
   }
 
-
   function addToCollection(videoData) {
     console.log('addtocollection');
     var videoID = videoData.video_id || videoData.videoID;
@@ -28,34 +29,42 @@ var libraryManagement = (function () {
       // increaseViewingTimes(videoId);
     }
     else {
-      $scope.movies.push(createModel(videoData));
+      movies.push(createModel(videoData));
       updateStorage();
     }
   }
 
   function updateStorage() {
-    localStorage.setItem('movies', JSON.stringify($scope.movies));
+    localStorage.setItem('movies', JSON.stringify(movies));
 
   }
 
   function getMovieByVideoId(videoID) {
-    $scope.movies.forEach(function (element) {
+    movies.forEach(function (element) {
       if (element.model.videoID === videoID) {
         return element;
       }
     });
+    return -1;
   }
-    
-    // for (var i = 0; i < _moviesArr.length; i++) {
-    //   if (_moviesArr[i].model.videoID == videoID) {
-    //     return _moviesArr[i];
-    //   }
-    // }
-    // return -1;
-    // }
 
-    return {
-      addToCollection: addToCollection
-    };
+  function getCollection() {
+    movies = JSON.parse(localStorage.getItem('movies')) || [];
+    return movies;
+  }
 
-  });
+  function clearLibrary() {
+    movies = [];
+    updateStorage();
+    return movies;
+  }
+
+
+  return {
+    addToCollection: addToCollection,
+    getCollection: getCollection,
+    clearLibrary: clearLibrary
+
+  };
+
+});

@@ -1,1 +1,1 @@
-window.libraryApp = angular.module('libraryApp', ['ui.router']);
+var libraryApp = angular.module('libraryApp', ['ui.router']);

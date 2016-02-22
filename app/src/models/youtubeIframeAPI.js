@@ -17,11 +17,12 @@ var managePlayerYT = (function () {
       else {
         addListener();
         loadVideoByID(linkID);
+        // playCustomVideo(linkID);
       }
 
       function playerStateHandler(event) {
         if (event.data == YT.PlayerState.PLAYING) {
-          setTimeout(stopVideo, 6000);
+          // setTimeout(stopVideo, 6000);
           console.log("player");
           var videoData = event.target.getVideoData();
           videoData.source = "youtube";
@@ -31,6 +32,8 @@ var managePlayerYT = (function () {
       }
       function addListener() {
         player.addEventListener("onStateChange", playerStateHandler);
+      }
+      function removeListener() {
       }
       function loadVideoByID(linkID) {
         player.loadVideoById(linkID);
@@ -58,13 +61,11 @@ var managePlayerYT = (function () {
         event.target.playVideo();
         iFrame = document.querySelector("iFrame");
       }
-
       function stopVideo() {
-        if (typeof player !== "undefined") {
+        if (typeof player !== "undefined" && player  !== null) {
           player.stopVideo();
         }
       }
-
       function playCustomVideo(linkID) {
         iFrame.src = "http://www.youtube.com/embed/" + linkID + "?autoplay=1";
         frameborder = "0";
