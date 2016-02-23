@@ -1,4 +1,4 @@
-window.libraryApp.directive('modal', function () {
+function modal() {
   return {
     template: '<div class="modal fade">' + 
         '<div class="modal-dialog">' + 
@@ -19,7 +19,7 @@ window.libraryApp.directive('modal', function () {
       scope.title = attrs.title;
 
       scope.$watch(attrs.visible, function(value){
-        if(value == true)
+        if(value === true)
           $(element).modal('show');
         else
           $(element).modal('hide');
@@ -38,4 +38,12 @@ window.libraryApp.directive('modal', function () {
       });
     }
   };
-});
+}
+
+(function(){
+  angular
+    .module('libraryApp')
+    .directive('modal', modal);
+  
+}());
+

@@ -1,1 +1,5 @@
-var libraryApp = angular.module('libraryApp', ['ui.router']);
+(function() {
+  angular.module('libraryApp', ['ui.router']);
+  
+}());
+

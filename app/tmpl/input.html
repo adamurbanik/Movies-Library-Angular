@@ -1,15 +1,13 @@
-<!--<input type="text" placeholder="wklej nowy link fo filmu"" class="form-control" ng-model="search">-->
-<div ng-controller="inputController" class="container">
-  <form role="form" name="pasteInput" ng-submit="processInputForm()">
+<div ng-controller="InputController as vm" class="container">
+  <form role="form" name="pasteInput" ng-submit="vm.processInputForm()">
     <div class="form-group">
       <label for="movieLink">Nowy film</label>
-      <input type="text" ng-model="formData.movieLink" name="movieLink" ng-pattern="inputPattern" id="movieLink" placeholder="Wklej tutaj link do filmu"
-      value="1" ng-model="movieLink" required>
+      <input type="text" ng-model="vm.movieLink" name="movieLink" ng-pattern="vm.inputPattern" id="movieLink" placeholder="Wklej tutaj link do filmu" required>
       <span ng-hide="pasteInput.movieLink.$valid" class="alert-danger">Proszę wklej link do filmu</span>
     </div>
-    <button ng-disabled="!(pasteInput.movieLink.$valid)" type="submit" class="btn btn-default" ng-click="toggleModal()" class="btn btn-default">Submit</button>
+    <button ng-disabled="!(pasteInput.movieLink.$valid)" type="submit" class="btn btn-default" ng-click="vm.toggleModal()" class="btn btn-default">Submit</button>
     
-    <modal title="Video" visible="showModal">
+    <modal title="Video" visible="vm.showModal">
       <div id="player" ></div>
       <iframe id="playerVimeo" ></iframe>
     </modal>

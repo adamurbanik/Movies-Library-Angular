@@ -1,19 +1,19 @@
-console.log('main controller js ');
+// console.log('main controller js ');
 
 
 
-window.libraryApp.controller('moviesController', ['$scope', 'moviesFactory', '$location', function ($scope, moviesFactory, $location) {
+// window.libraryApp.controller('moviesController', ['$scope', 'moviesFactory', '$location', function ($scope, moviesFactory, $location) {
 
-  // console.log(moviesFactory);
-  $scope.movies = moviesFactory;
-
-
-  $scope.currMovie = null;
+//   // console.log(moviesFactory);
+//   $scope.movies = moviesFactory;
 
 
-  $scope.isActive = function (route) {
-    return route === $location.path();
-  };
+//   $scope.currMovie = null;
 
 
-}]);
+//   $scope.isActive = function (route) {
+//     return route === $location.path();
+//   };
+
+
+// }]);

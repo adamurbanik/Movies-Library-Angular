@@ -1,19 +1,25 @@
-console.log("input controller js");
+(function () {
 
+  function InputController(LibraryService, InputService, PlayerYTService) {
 
-libraryApp.controller('inputController', ['$scope', 'libraryManagement', 'managePlayerYT', 'inputModel', function ($scope, libraryManagement, managePlayerYT, inputModel) {
+    var vm = this;
+    vm.movies = [];
+    vm.movieLink = "";
 
-  $scope.showModal = false;
-  $scope.toggleModal = function (params) {
-    $scope.showModal = !$scope.showModal;
-  };
+    vm.showModal = false;
+    vm.toggleModal = function (params) {
+      vm.showModal = !vm.showModal;
 
-  $scope.movies = libraryManagement.getCollection();
-  console.log($scope.movies);
+    };
 
-  $scope.inputPattern = /./;
+    LibraryService
+      .getCollection()
+      .then(function (response) {
+        vm.movies = response;
+        console.log(vm.movies);
+      });
 
-  $scope.processInputForm = function () {
+    vm.inputPattern = /./;
 
     var config = {
       thumbs: "thumbs",
@@ -24,49 +30,45 @@ libraryApp.controller('inputController', ['$scope', 'libraryManagement', 'manage
       videoHeight: 385
     };
 
-    var input = inputModel.inputHandler($scope.formData.movieLink);
+    vm.processInputForm = function () {
+      console.log(vm.movieLink);
+
+      InputService
+        .inputHandler(vm.movieLink)
+        .then(function (response) {
+          if (response.provider === "youtube" && response.videoID !== -1) {
+            PlayerYTService.playVideo(config, response.videoID).then(function (videoData) {
+              LibraryService
+                .addToCollection(videoData)
+                .then(function(response) {
+                  vm.movies = response;
+                });
+
+            });
+          }
+        });
+
+      vm.movieLink = "";
+    };
+
+    vm.getCount = function () {
+      return vm.movies.length;
+    };
+
+    vm.eraseLibrary = function () {
+      LibraryService
+        .clearLibrary()
+        .then(function (response) {
+          vm.movies = response;
+        });
+    };
+    
+  }
+  
+
+  angular
+    .module('libraryApp')
+    .controller('InputController', InputController);
+} ());
 
 
-    if (input.provider === "youtube" && input.videoID !== -1) {
-      managePlayerYT.playVideo(config, input.videoID).then(function (videoData) {
-        libraryManagement.addToCollection(videoData);
-
-      });
-    }
-    else if (input.provider === "vimeo" && input.videoID !== -1) {
-      managePlayerVimeo.playVideo(config, input.videoID);
-
-    }
-    $scope.formData.movieLink = "";
-
-  };
-
-
-
-
-  $scope.getCount = function () {
-    return $scope.movies.length;
-  };
-
-  $scope.eraseLibrary = function () {
-    $scope.movies = libraryManagement.clearLibrary();
-    console.log($scope.movies);
-  };
-
-
-
-
-
-
-}]);
-
-
-
-
-
-
-// https://www.youtube.com/watch?v=4JOAqRS_lms
-// https://youtu.be/vJ3a_AuEW18
-// https://vimeo.com/138882294
-
-// ngStorage
