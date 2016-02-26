@@ -17,12 +17,9 @@
         templateUrl: 'tmpl/input.html',
         controller: 'InputController'
       })
-      .state('playMovie', {
-        url: '/input/play',
-        templateUrl: 'tmpl/modal.html',
-        controller: 'modalController'
-      })
       ;
+
+
 
   }
 

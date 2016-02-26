@@ -5,7 +5,8 @@
   "main": "./public/index.html",
   "dependencies": {
     "gulp": "^3.9.1",
-    "gulp-util": "^3.0.7"
+    "gulp-util": "^3.0.7",
+    "ngstorage": "^0.3.10"
   },
   "devDependencies": {
     "gulp-bower-files": "^0.2.7",

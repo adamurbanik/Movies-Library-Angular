@@ -1,12 +1,37 @@
 <div class="" ng-controller="InputController as vm">
-  <a href=# class="btn btn-success" role="button" ng-disabled="vm.getCount()===0" ng-click="vm.eraseLibrary()">Wymaż bibliotekę</a>
-    <div class="row movies-list">
-        <div class="col-md-4" ng-repeat="movie in vm.movies | orderBy:'name':true | filter:search">
-            <h2>{{movie.name | uppercase}}</h2>
-            <p>
-                <img ng-src="{{movie.model.thumb}}" class="thumb-big">
-            <p>
-            
-        </div>
+  <button type="button" class="btn btn-default" ng-click="vm.toggleSort()" ng-show="vm.sortAscending">
+    <span class="glyphicon glyphicon-sort-by-attributes"></span>
+  </button>
+  <button type="button" class="btn btn-default" ng-click="vm.toggleSort()" ng-show="vm.sortDescending">
+    <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+  </button>
+  <a href=#/ class="btn btn-success" role="button" ng-disabled="vm.getCount()===0" ng-click="vm.eraseLibrary()">Wymaż bibliotekę</a>
+  <div class="checkbox">
+    <label><input type="checkbox" value="" ng-model="search">Pokaż ulubione</label>
+  </div>
+  <br>
+  <input type="text" placeholder="Search Movies" class="form-control" ng-model="search">
+  <br>
+  <div class="row movies-list">
+    <div class="col-md-4 movieElement" ng-repeat="movie in vm.movies | orderBy:'dateNumber':vm.sortAscending | filter:search">
+      <img ng-src="{{movie.thumb}}" width="220px" alt="...">
+      <h5>{{movie.title | uppercase | limitTo:30}}</h5>
+      <p class="topBuffer"><span style="font-size:smaller;">Autor: {{movie.author}}</span></p>
+      <p class="topBuffer"><span style="font-size:smaller;">Data dodania: {{movie.date}}</span></p>
+      <p class="topBuffer"><span style="font-size:smaller;">Ulubiony: {{movie.favourite}}</span></p>
+      <p class="topBuffer"><span style="font-size:smaller;">Ilość polubień: {{movie.favourCount}}</span></p>
+      <p class="topBuffer"><span style="font-size:smaller;">Ilość odtworzeń: {{movie.viewingCount}}</span></p>
+      <p class="buttonLayer">
+        <button type="button" class="btn btn-primary btn-xs" ng-click="vm.playVideo(movie)">Obejrzyj</button>
+        <button type="button" class="btn btn-primary btn-xs" ng-click="vm.deleteMovie(movie.videoID)">Usuń</button>
+        <button type="button" class="btn btn-primary btn-xs" ng-click="vm.addFavourite(movie.videoID)">Dodaj do ulubionych</button>
+      </p>
     </div>
+  </div>
+  <!--<app-video-modal title="Video" visible="vm.showModal">
+    <div id="player"></div>
+    <iframe id="playerVimeo"></iframe>
+  </app-video-modal>-->
+
+
 </div>

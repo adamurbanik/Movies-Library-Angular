@@ -1,5 +1,5 @@
 (function() {
-  angular.module('libraryApp', ['ui.router']);
+  angular.module('libraryApp', ['ui.router', 'ngStorage']);
   
 }());
 

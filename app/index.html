@@ -11,6 +11,7 @@
   <script type="text/javascript" src="js/lib/angular.js"></script>
   <script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
   <script type="text/javascript" src="js/lib/angular-ui-router.js"></script>
+  <script type="text/javascript" src="js/lib/ngStorage.min.js"></script>
 
   <!--<link rel="stylesheet" type="text/css" href="css/vendor.css">-->
   <link rel="stylesheet" type="text/css" href="css/app.css">
@@ -21,7 +22,9 @@
   <script type="text/javascript" src="src/app.js"></script>
   <script type="text/javascript" src="src/service/LibraryService.js"></script>
   <script type="text/javascript" src="src/service/InputService.js"></script>
-  <script type="text/javascript" src="src/service/PlayerYTService.js"></script>
+  <script type="text/javascript" src="src/service/YTService.js"></script>
+  <script type="text/javascript" src="src/service/VimeoService.js"></script>
+
   
   <script type="text/javascript" src="src/controllers/moviescontroller.js"></script>
   <script type="text/javascript" src="src/controllers/inputController.js"></script>
@@ -38,6 +41,8 @@
 <body class="container" >
   <div ng-include="'tmpl/header.html'"></div>
   <div ui-view class="view-container"></div>
+  <div id="player"></div>
+<iframe id="playerVimeo"></iframe>
 </body>
 
 </html>
