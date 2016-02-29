@@ -4,6 +4,7 @@
   "description": "library of movies based on angular framework",
   "main": "./public/index.html",
   "dependencies": {
+    "angular-ui-bootstrap": "^1.2.1",
     "gulp": "^3.9.1",
     "gulp-util": "^3.0.7",
     "ngstorage": "^0.3.10"

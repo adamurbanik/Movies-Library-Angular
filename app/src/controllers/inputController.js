@@ -3,6 +3,7 @@
   angular
     .module('libraryApp')
     .controller('InputController', InputController);
+
 } ());
 
 function InputController(LibraryService, InputService, YTService, VimeoService, $location) {
@@ -91,9 +92,9 @@ function InputController(LibraryService, InputService, YTService, VimeoService, 
     vm.movies = LibraryService.collectionService.videos;
   };
 
-  vm.search = function(search) {
+  vm.search = function (search) {
     console.log(search);
-    
+
   };
 
 
@@ -114,9 +115,50 @@ function InputController(LibraryService, InputService, YTService, VimeoService, 
     return route === $location.path();
   };
 
+  vm.viewBy = 10;
+  vm.totalItems = vm.movies.length;
+  console.log(vm.totalItems);
+  vm.currentPage = 1;
+  vm.itemsPerPage = vm.viewBy;
+  vm.maxSize = 5; //Number of pager buttons to show
+  
+  vm.setItemsPerPage = function (num) {
+    vm.itemsPerPage = num;
+    vm.currentPage = 1; // reset to first page
+    console.log("setitemperpage");
+  };
+
+
+
 }
 
 
 
 
 
+
+// troche htmla
+
+  // <div ng-controller="PaginationDemoCtrl">
+  //   <table class="table">
+  //     <tr ng-repeat="row in data.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+  //       <td>{{row.name}}</td>
+  //       <td>{{row.id}}</td>
+  //     </tr>
+  //   </table>
+  //   View
+  //   <select ng-model="viewby" ng-change="setItemsPerPage(viewby)">
+  //     <option>3</option>
+  //     <option>5</option>
+  //     <option>10</option>
+  //     <option>20</option>
+  //     <option>30</option>
+  //     <option>40</option>
+  //     <option>50</option>
+  //   </select> records at a time.
+
+  //   <uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
+  //   <uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"
+  //   rotate="false" num-pages="numPages" items-per-page="itemsPerPage"></uib-pagination>
+  //   <pre>Page: {{currentPage}} / {{numPages}}</pre>
+  // </div>
