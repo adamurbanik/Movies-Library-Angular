@@ -23,10 +23,13 @@
     <label>
       <input type="checkbox" value="" ng-model="search">Pokaż ulubione</label>
   </div>
-  <br>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" value="" ng-model="isList"  value="" >Wyświetl zawartość jako liste</label>
+  </div>
   <input type="text" placeholder="Szukaj filmu" class="form-control" ng-model="search">
   <br>
-  <div class="row movies-list">
+  <div class="row movies-list" ng-hide="isList"">
     <div class="col-md-4 movieElement" ng-repeat="movie in vm.movies.slice(((vm.currentPage-1)*vm.itemsPerPage), ((vm.currentPage)*vm.itemsPerPage)) | orderBy:'dateNumber':vm.sortAscending | filter:search">
       <img ng-src="{{movie.thumb}}" width="300px" alt="...">
       <h5>{{movie.title | uppercase | limitTo:30}}</h5>
@@ -42,32 +45,26 @@
       </p>
     </div>
   </div>
-  
-  <div class="container">
-  <h2>List Group With Custom Content</h2>
-  <div class="list-group">
-    <a href="#" class="list-group-item active">
-      <h4 class="list-group-item-heading">First List Group Item Heading</h4>
-      <p class="list-group-item-text">List Group Item Text</p>
-    </a>
-    <a href="#" class="list-group-item">
-      <h4 class="list-group-item-heading">Second List Group Item Heading</h4>
-      <p class="list-group-item-text">List Group Item Text</p>
-    </a>
-    <a href="#" class="list-group-item">
-      <h4 class="list-group-item-heading">Third List Group Item Heading</h4>
-      <p class="list-group-item-text">List Group Item Text</p>
-    </a>
-  </div>
-</div>
 
-
-
-    <div>
-      <uib-pagination total-items="vm.totalItems" ng-model="vm.currentPage" max-size="vm.maxSize" class="pagination-sm" boundary-links="true"
-      rotate="false" num-pages="numPages" items-per-page="vm.itemsPerPage"></uib-pagination>
-      <pre>Strona: {{vm.currentPage}} / {{numPages}}</pre>
+  <div class="container" ng-show="isList">
+    <div class="list-group">
+      <uib-accordion close-others="true">
+          <uib-accordion-group heading="{{movie.title}}" ng-repeat="movie in vm.movies.slice(((vm.currentPage-1)*vm.itemsPerPage), ((vm.currentPage)*vm.itemsPerPage)) | orderBy:'dateNumber':vm.sortAscending | filter:search">
+            <a href="#" class="list-group-item">
+              <!--<h5 class="list-group-item-heading">{{movie.title | uppercase | limitTo:30}}-->
+              <p class="list-group-item-text"><small>Autor: {{movie.author}}</small></p></h5>
+              <p class="list-group-item-text"><span style="font-size:smaller;">Data dodania: {{movie.date}}</span></p>
+              <p class="list-group-item-text"><span style="font-size:smaller;">Ulubiony: {{movie.favourite}}</span></p>
+              <p class="list-group-item-text"><span style="font-size:smaller;">Ilość polubień: {{movie.favourCount}}</span></p>
+              <p class="list-group-item-text"><span style="font-size:smaller;">Ilość odtworzeń: {{movie.viewingCount}}</span></p>
+            </a>    
+          </uib-accordion-group>
+      </uib-accordion>
     </div>
-
-
+  </div>
+  <div>
+    <uib-pagination total-items="vm.totalItems" ng-model="vm.currentPage" max-size="vm.maxSize" class="pagination-sm" boundary-links="true"
+    rotate="false" num-pages="numPages" items-per-page="vm.itemsPerPage"></uib-pagination>
+    <pre>Strona: {{vm.currentPage}} / {{numPages}}</pre>
+  </div>
 </div>
