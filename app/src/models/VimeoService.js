@@ -9,7 +9,7 @@
 // } ());
 
 
-var VimeoService = (function () {
+function VimeoService() {
   var vimPlayer;
 
   function validate(url) {
@@ -27,8 +27,12 @@ var VimeoService = (function () {
     }
   }
 
+  function serviceName() {
+    return 'vimeo';
+  }
+
   function fetchVideo(config, url) {
-    return new Promise(function (succeed, fail) {   
+    return new Promise(function (succeed, fail) {
       var videoID = getVimeoID(url);
       initScript();
 
@@ -63,9 +67,6 @@ var VimeoService = (function () {
         vimPlayer.setAttribute("webkitAllowFullScreen", "");
         vimPlayer.setAttribute("mozallowfullscreen", "");
         vimPlayer.setAttribute("allowFullScreen", "");
-        var playerYT = document.getElementById("player");
-        playerYT.parentElement.insertBefore(playerYT, vimPlayer);
-
       }
 
       function getData(videos) {
@@ -98,11 +99,12 @@ var VimeoService = (function () {
   }
 
   return {
+    serviceName: serviceName,
     validate: validate,
     fetchVideo: fetchVideo
   };
 
-} ());
+}
 
 
 

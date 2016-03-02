@@ -66,4 +66,10 @@
     rotate="false" num-pages="numPages" items-per-page="vm.itemsPerPage"></uib-pagination>
     <pre>Strona: {{vm.currentPage}} / {{numPages}}</pre>
   </div>
+  <app-video-modal title="Video" visible="vm.youtube">
+      <div id="player"></div>
+    </app-video-modal>
+    <app-video-modal title="Video" visible="vm.vimeo">
+      <iframe id="playerVimeo"></iframe>
+    </app-video-modal>
 </div>

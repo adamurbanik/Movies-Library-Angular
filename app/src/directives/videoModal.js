@@ -12,6 +12,8 @@ function modal() {
 
       scope.$watch('visible', function(value) {
         $(element).modal( value ? 'show' : 'hide');
+        console.log($(element));
+        console.log(value);
       });
 
       $(element)

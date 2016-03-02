@@ -1,3 +1,5 @@
+/* global angular, localStorage, console, Promise, setTimeout, document */
+"use strict";
 // (function () {
 
 //   angular
@@ -6,29 +8,12 @@
 
 // } ());
 
-var YTService = (function () {
+function YTService() {
   var playerOptions, player, iFrame;
 
   console.log("YTService has been initialized");
 
   function createScript() {
- 
-    // var widgetScript = document.getElementById('www-widgetapi-script');
-    // if (widgetScript !== null && typeof widgetScript !== 'undefined') {
-    //   widgetScript.parentElement.removeChild(widgetScript);
-    // }
- 
-    // var div = document.createElement('div');
-    // div.setAttribute('id', 'player');
-    // var vimeoPlayer = document.getElementById('playerVimeo');
-    // vimeoPlayer.parentNode.insertBefore(div, vimeoPlayer);
-
-
-    // var ytScript = document.getElementById('ytScript');
-    // if (ytScript !== null && typeof ytScript !== 'undefined') {
-    //   ytScript.parentElement.removeChild(ytScript);
-    // }
-    
     // 2. This code loads the IFrame Player API code asynchronously.
     var url = "https://www.youtube.com/iframe_api";
     var script = document.createElement('script');
@@ -57,7 +42,10 @@ var YTService = (function () {
       return -1;
     }
   }
-
+  
+  function serviceName() {
+    return 'youtube';
+  }
 
   function fetchVideo(config, url) {
     return new Promise(function (succeed, fail) {
@@ -138,14 +126,16 @@ var YTService = (function () {
       }
       function playCustomVideo(linkID) {
         iFrame.src = "http://www.youtube.com/embed/" + linkID + "?autoplay=1";
-        frameborder = "0";
+        //frameborder = "0";
       }
     });
   }
 
   return {
+    serviceName: serviceName,
     validate: validate,
     fetchVideo: fetchVideo
   };
 
-} ());
+}
+

@@ -10,14 +10,9 @@ function InputController(LibraryService, $location) {
 
   var vm = this;
 
+  var videoServices = new VideoServices(vm);
+
   vm.movieLink = "";
-
-  vm.showModal = false;
-  vm.toggleModal = function (params) {
-    vm.showModal = !vm.showModal;
-    console.log("modal toggled", vm.showModal);
-
-  };
 
   vm.sortDescending = false;
   vm.sortAscending = true;
@@ -42,11 +37,10 @@ function InputController(LibraryService, $location) {
   };
 
   vm.processInputForm = function () {
-
-    var url = "";
-    url = vm.movieLink;
-
+    
+    var url = vm.movieLink;
     videoServices.fetchVideo(config, url).then(function (videoData) {
+
       if (LibraryService.collectionService.checkIfExists(videoData.videoID)) {
         alert("ten tytul juz jest zapisany w bibliotece");
       }
@@ -63,7 +57,11 @@ function InputController(LibraryService, $location) {
   };
 
   vm.playVideo = function (movie) {
-    videoServices.fetchVideo(config, movie.url);
+    videoServices.fetchVideo(config, movie.url).then(function() {
+      LibraryService.collectionService.increaseViewingCount(movie.videoID);
+      vm.movies = LibraryService.collectionService.videos;
+    });
+    
   };
 
   vm.deleteMovie = function (videoID) {
@@ -78,7 +76,6 @@ function InputController(LibraryService, $location) {
 
   vm.search = function (search) {
     console.log(search);
-
   };
 
   vm.getCount = function () {
@@ -86,7 +83,6 @@ function InputController(LibraryService, $location) {
       return vm.movies.length;
     }
     return 0;
-
   };
 
   vm.eraseLibrary = function () {
