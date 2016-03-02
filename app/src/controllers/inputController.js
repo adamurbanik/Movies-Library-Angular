@@ -15,6 +15,7 @@ function InputController(LibraryService, $location) {
   vm.showModal = false;
   vm.toggleModal = function (params) {
     vm.showModal = !vm.showModal;
+    console.log("modal toggled", vm.showModal);
 
   };
 

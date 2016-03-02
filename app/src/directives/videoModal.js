@@ -27,10 +27,10 @@ function modal() {
   };
 }
 
-// (function(){
-//   angular
-//     .module('libraryApp')
-//     .directive('appVideoModal', modal);
+(function(){
+  angular
+    .module('libraryApp')
+    .directive('appVideoModal', modal);
   
-// }());
+}());
 
