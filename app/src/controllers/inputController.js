@@ -6,7 +6,7 @@
 
 } ());
 
-function InputController(LibraryService, InputService, YTService, VimeoService, $location) {
+function InputController(LibraryService, $location) {
 
   var vm = this;
 
@@ -41,45 +41,28 @@ function InputController(LibraryService, InputService, YTService, VimeoService, 
   };
 
   vm.processInputForm = function () {
-    console.log(vm.movieLink);
-    var input = InputService.inputHandler(vm.movieLink);
 
-    if (LibraryService.collectionService.checkIfExists(input.videoID)) {
-      alert("ten film jest juz zapisany w bibliotece");
-    }
-    else {
-      if (input.provider === "youtube" && input.videoID !== -1) {
-        YTService.playVideo(config, input.videoID).then(function (videoData) {
-          LibraryService.collectionService.addItem(videoData);
-          vm.movies = LibraryService.collectionService.videos;
-        });
+    var url = "";
+    url = vm.movieLink;
+
+    videoServices.fetchVideo(config, url).then(function (videoData) {
+      if (LibraryService.collectionService.checkIfExists(videoData.videoID)) {
+        alert("ten tytul juz jest zapisany w bibliotece");
       }
-      else if (input.provider === "vimeo" && input.videoID !== -1) {
-        VimeoService.playVideo(config, input.videoID).then(function (videoData) {
-          console.log('success', videoData);
-          LibraryService.collectionService.addItem(videoData);
-          vm.movies = LibraryService.collectionService.videos;
-        }, function () {
-          console.log('fail');
-        });
+      else {
+        LibraryService.collectionService.addItem(videoData);
+        vm.movies = LibraryService.collectionService.videos;
       }
-    }
+
+    }, function (error) {
+      console.log(error);
+    });
 
     vm.movieLink = "";
   };
 
   vm.playVideo = function (movie) {
-    if (movie.source === 'youtube') {
-      YTService.playVideo(config, movie.videoID).then(function () {
-        LibraryService.collectionService.increaseViewingCount(movie.videoID);
-        vm.movies = LibraryService.collectionService.videos;
-      });
-    }
-    else if (movie.source === 'vimeo') {
-      VimeoService.playVideo(config, movie.videoID).then(function () {
-        LibraryService.collectionService.increaseViewingCount(movie.videoID);
-      });
-    }
+    videoServices.fetchVideo(config, movie.url);
   };
 
   vm.deleteMovie = function (videoID) {
@@ -96,7 +79,6 @@ function InputController(LibraryService, InputService, YTService, VimeoService, 
     console.log(search);
 
   };
-
 
   vm.getCount = function () {
     if (typeof vm.movies !== 'undefined') {
@@ -136,29 +118,3 @@ function InputController(LibraryService, InputService, YTService, VimeoService, 
 
 
 
-
-// troche htmla
-
-  // <div ng-controller="PaginationDemoCtrl">
-  //   <table class="table">
-  //     <tr ng-repeat="row in data.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
-  //       <td>{{row.name}}</td>
-  //       <td>{{row.id}}</td>
-  //     </tr>
-  //   </table>
-  //   View
-  //   <select ng-model="viewby" ng-change="setItemsPerPage(viewby)">
-  //     <option>3</option>
-  //     <option>5</option>
-  //     <option>10</option>
-  //     <option>20</option>
-  //     <option>30</option>
-  //     <option>40</option>
-  //     <option>50</option>
-  //   </select> records at a time.
-
-  //   <uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
-  //   <uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"
-  //   rotate="false" num-pages="numPages" items-per-page="itemsPerPage"></uib-pagination>
-  //   <pre>Page: {{currentPage}} / {{numPages}}</pre>
-  // </div>

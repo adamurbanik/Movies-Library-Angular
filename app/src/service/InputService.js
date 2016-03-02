@@ -21,11 +21,11 @@ function InputService() {
     try {
       if (getYouTubeID(link) !== -1) {
         videoID = getYouTubeID(link);
-        provider = "youtube";
+        provider = YTService; 
       }
       else if (getVimeoID(link) !== -1) {
         videoID = getVimeoID(link);
-        provider = "vimeo";
+        provider = VimeoService; 
       }
 
       return {
@@ -61,3 +61,81 @@ function InputService() {
   }
 
 }
+
+
+
+
+
+
+
+
+
+
+// interface IVideo {
+// 	id: string;
+// 	name: string;
+// }
+
+// interface IVideoService {
+// 	validate (url : string) : boolean;
+// 	fetchVideo (url : string) : Promise<IVideo>;
+// }
+
+// class YoutubeVideoService implements IVideoService {
+// 	validate() {
+// 		return false;
+// 	}
+	
+// 	fetchVideo() {
+// 		return Promise.reject('chuj');
+// 	}
+// } 
+
+// class VimeoVideoService implements IVideoService {
+// 	validate() {
+// 		return false;
+// 	}
+	
+// 	fetchVideo() {
+// 		return Promise.reject('chuj');
+// 	}
+// }
+
+
+// class LSVideoService implements IVideoService {
+// 	validate() {
+// 		return false;
+// 	}
+	
+// 	fetchVideo() {
+// 		return Promise.reject('chuj');
+// 	}
+// } 
+
+// class VideoService implements IVideoService {
+// 	private services : IVideoService[] = [
+// 		new YoutubeVideoService(),
+// 		new VimeoVideoService(),
+// 		new LSVideoService()
+// 	]
+	
+// 	validate(url : string) {
+// 		for (let s of this.services) {
+// 			if (s.validate(url)) {
+// 				return true;
+// 			}
+// 		}
+		
+// 		return false;
+// 	}
+	
+// 	fetchVideo(url : string) {
+// 		for (let s of this.services) {
+// 			if (s.validate(url)) {
+// 				return s.fetchVideo(url);
+// 			}
+// 		}
+		
+// 		return Promise.reject('Podales chujowy url');
+// 	}
+// }
