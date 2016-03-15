@@ -1,11 +1,21 @@
-<div class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">{{ title }}</h4>
+
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">{{ title }}</h4>{{$sce(url).URL}}
+        </div>
+        <div class="modal-body">
+          <div ng-switch="type === 'youtube'">
+             <iframe style="border: 0; width: 570px; height: 320px" ng-switch-when="true" id="playerVimeo" src="{{url | unsafe}}"></iframe>
+             <iframe style="border: 0; width: 570px; height: 320px" ng-switch-when="false" id="playerVimeo" src="{{url | unsafe}}"></iframe>
+          </div>
+        </div>
       </div>
-      <div class="modal-body" ng-transclude></div>
     </div>
   </div>
-</div>
+
+  
+
+

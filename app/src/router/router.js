@@ -1,6 +1,6 @@
 (function () {
 
-  function config($stateProvider, $urlRouterProvider) {
+  function Config($stateProvider, $urlRouterProvider) {
     console.log('route');
     $urlRouterProvider.otherwise("/");
 
@@ -9,13 +9,13 @@
       .state('root', {
         url: "/",
         templateUrl: 'tmpl/home.html',
-        controller: 'InputController'
+        controller: 'LibraryController'
       })
 
       .state('addmovie', {
         url: '/input',
         templateUrl: 'tmpl/input.html',
-        controller: 'InputController'
+        controller: 'LibraryController'
       })
       ;
 
@@ -23,7 +23,7 @@
 
   angular
     .module('libraryApp')
-    .config(config);
+    .config(Config);
 
 } ());
 
