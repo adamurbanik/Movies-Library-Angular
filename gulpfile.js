@@ -61,7 +61,10 @@ gulp.task('js', function () {
         .pipe(connect.reload());
 });
 
-
+gulp.task('fonts', function() {
+  return gulp.src('bower_components/bootstrap/fonts/*')
+             .pipe(gulp.dest('public/fonts'));
+})
 
 gulp.task('watch', function () {
     gulp.watch(['./app/**/*.html'], ['html']);
@@ -69,5 +72,4 @@ gulp.task('watch', function () {
     gulp.watch(['./app/**/*.less'], ['less']);
 });
 
-gulp.task('default', ['html', 'css-vendor', 'js', 'bower', 'less', 'connect', 'watch']);
-// gulp.task('default', ['connect', 'watch']);
+gulp.task('default', ['html', 'fonts', 'css-vendor', 'js', 'bower', 'less', 'connect', 'watch']);
