@@ -8,7 +8,7 @@ gulp.task('less', function () {
     gulp.src('./app/less/main.less')
         .pipe(less())
         .pipe(concat('app.css'))
-        .pipe(gulp.dest('./app/css'))
+        .pipe(gulp.dest('./public/css'))
         .pipe(connect.reload());
 });
 
@@ -18,9 +18,8 @@ gulp.task('css-vendor', function () {
             "./bower_components/bootstrap/dist/css/bootstrap.min.css",
             "./bower_components/bootstrap/dist/css/bootstrap-theme.min.css"
         ])
-
         .pipe(concat('vendor.css'))
-        .pipe(gulp.dest('./app/css/'));
+        .pipe(gulp.dest('./public/css'));
 });
 
 gulp.task('bower', function () {
@@ -31,17 +30,16 @@ gulp.task('bower', function () {
             "./bower_components/angular/angular.js",
             "./bower_components/angular-animate/angular-animate.js",
             "./bower_components/angular-ui-router/release/angular-ui-router.js",
-            "./bower_components/angular-bootstrap/ui-bootstrap.js",            
+            "./bower_components/angular-bootstrap/ui-bootstrap.js",
             "./bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
         ])
-
         .pipe(concat('vendor.js'))
-        .pipe(gulp.dest('./app/js/'));
+        .pipe(gulp.dest('./public/js'));
 });
 
 gulp.task('connect', function () {
     connect.server({
-        root: 'app',
+        root: 'public',
         livereload: true
     });
 });
@@ -49,6 +47,7 @@ gulp.task('connect', function () {
 
 gulp.task('html', function () {
     gulp.src('./app/**/*.html')
+        .pipe(gulp.dest('public'))
         .pipe(connect.reload());
 });
 
@@ -58,7 +57,7 @@ gulp.task('js', function () {
           './app/src/**/*.js'
         ])
         .pipe(concat('app.js'))
-        .pipe(gulp.dest('./app/js/'))
+        .pipe(gulp.dest('./public/js/'))
         .pipe(connect.reload());
 });
 
@@ -70,5 +69,5 @@ gulp.task('watch', function () {
     gulp.watch(['./app/**/*.less'], ['less']);
 });
 
-gulp.task('default', ['css-vendor', 'js', 'bower', 'less', 'connect', 'watch']);
+gulp.task('default', ['html', 'css-vendor', 'js', 'bower', 'less', 'connect', 'watch']);
 // gulp.task('default', ['connect', 'watch']);
