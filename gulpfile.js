@@ -25,13 +25,16 @@ gulp.task('css-vendor', function () {
 
 gulp.task('bower', function () {
     gulp.src([
-            "./bower_components/jquery/dist/jquery.min.js",
-            "./bower_components/bootstrap/dist/js/bootstrap.min.js",
-            "./bower_components/angular/angular.min.js",
-            "./bower_components/angular-ui-router/release/angular-ui-router.min.js",
-            "./bower_components/lodash/dist/lodash.min.js",
+            "./bower_components/lodash/dist/lodash.js",
+            "./bower_components/jquery/dist/jquery.js",
+            "./bower_components/bootstrap/dist/js/bootstrap.js",
+            "./bower_components/angular/angular.js",
+            "./bower_components/angular-animate/angular-animate.js",
+            "./bower_components/angular-ui-router/release/angular-ui-router.js",
+            "./bower_components/angular-bootstrap/ui-bootstrap.js",            
+            "./bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
         ])
-        // .pipe(mainBowerFiles(new RegExp('/*.js/')))
+
         .pipe(concat('vendor.js'))
         .pipe(gulp.dest('./app/js/'));
 });
@@ -50,9 +53,12 @@ gulp.task('html', function () {
 });
 
 gulp.task('js', function () {
-    gulp.src('./app/src/**/*.js')
-        // .pipe(concat('app.js'))
-        // .pipe(gulp.dest('./app/js/'))
+    gulp.src([
+          './app/src/app.js',
+          './app/src/**/*.js'
+        ])
+        .pipe(concat('app.js'))
+        .pipe(gulp.dest('./app/js/'))
         .pipe(connect.reload());
 });
 
@@ -64,5 +70,5 @@ gulp.task('watch', function () {
     gulp.watch(['./app/**/*.less'], ['less']);
 });
 
-// gulp.task('default', ['css-vendor', 'js', 'bower', 'less', 'connect', 'watch']);
-gulp.task('default', ['connect', 'watch']);
+gulp.task('default', ['css-vendor', 'js', 'bower', 'less', 'connect', 'watch']);
+// gulp.task('default', ['connect', 'watch']);

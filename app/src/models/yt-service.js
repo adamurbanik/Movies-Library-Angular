@@ -1,8 +1,6 @@
-"use strict";
-/* globals console, document, Promise, window, angular*/
-
-
 (function () {
+  
+  "use strict";
 
   var $ = window.$;
 
@@ -74,4 +72,4 @@
     .module('libraryApp')
     .service('ytService', YTService);
 
-} ());
+})();

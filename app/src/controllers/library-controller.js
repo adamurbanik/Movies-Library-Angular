@@ -14,12 +14,9 @@
       this.config = config;
       this.libraryService = libraryService;
       this.$location = $location;
-      // this.modalService = modalService;
-      console.log(libraryService.collectionService.videos);
-
-      this.viewBy = 10;
+      this.search = false;
       this.currentPage = 1;
-      this.itemsPerPage = this.viewBy;
+      this.itemsPerPage = 2;
       this.maxSize = 5; //Number of pager buttons to show
       this.movieLink = "";
       this.sortDirection = true; // true = ASC, false = DESC
@@ -28,6 +25,12 @@
 
     LibraryController.prototype.isActive = function isActive(route) {
       return route === this.$location.path();
+    };
+
+    LibraryController.prototype.getLibraryLength = function getLibraryLength(search){
+      return this.libraryService.collectionService.videos.filter(function(element) {
+          return element.favourite === search;
+        }).length;
     };
 
     LibraryController.prototype.eraseLibrary = function eraseLibrary() {
@@ -104,6 +107,6 @@
       videoHeight: 385
     });
 
-} ());
+})();
 
 

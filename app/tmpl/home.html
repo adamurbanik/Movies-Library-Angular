@@ -1,4 +1,4 @@
-<div ng-controller="LibraryController as vm">
+<div>
   <button type="button" class="btn btn-default" ng-click="vm.toggleSort()">
     <span class="glyphicon" ng-class="vm.getSortClass()"></span>
   </button>
@@ -7,28 +7,31 @@
     <form role="form">
       <div>
         <label for="sel1">Wybierz ilość elementów na stronie::</label>
-        <select ng-model="vm.viewby" ng-change="vm.setItemsPerPage(vm.viewby)" class="form-control" id="sel1">
-          <option ng-selected="true">10</option>
-          <option>20</option>
-          <option>50</option>
-          <option>100</option>
+        <select ng-model="vm.itemsPerPage" class="form-control" id="sel1">
+          <option value="2" ng-selected="true">2</option>
+          <option value="4">4</option>
+          <option value="8">8</option>
+          <option value="10">10</option>
         </select>
       </div>
     </form>
   </div>
   <div class="checkbox">
     <label>
-      <input type="checkbox" value="" ng-model="search">Pokaż ulubione</label>
+      <input type="checkbox" ng-model="vm.search">Pokaż ulubione</label>
   </div>
   <div class="checkbox">
     <label>
-      <input type="checkbox" value="" ng-model="isList" value="">Wyświetl zawartość jako liste</label>
+      <input type="checkbox" ng-model="isList" value="">Wyświetl zawartość jako liste</label>
   </div>
-  <input type="text" placeholder="Szukaj filmu" class="form-control" ng-model="search">
+  <input type="text" placeholder="Szukaj filmu" class="form-control" ng-model="vm.search">
   <br>
   <div class="row movies-list" ng-hide="isList" ">
-      <div class="col-md-4 movieElement " ng-repeat="movie in vm.libraryService.collectionService.videos.slice(((vm.currentPage-1)*vm.itemsPerPage),
-  ((vm.currentPage)*vm.itemsPerPage)) | orderBy: 'dateNumber':vm.sortAscending | filter:search ">
+      <div 
+      class="col-md-4 movieElement " 
+      ng-show="(vm.search) ? movie.favourite : true"
+      ng-repeat="movie in vm.libraryService.collectionService.videos.slice(((vm.currentPage-1)*vm.itemsPerPage),
+  ((vm.currentPage)*vm.itemsPerPage)) | orderBy: 'dateNumber':vm.sortDirection">
       <img ng-src="{{movie.thumb}} " width="300px " alt="... ">
       <h5>{{movie.title | uppercase | limitTo:30}}</h5>
       <p class="topBuffer "><span style="font-size:smaller; ">Autor: {{movie.author}}</span></p>
@@ -47,8 +50,10 @@
   <div class="container " ng-show="isList ">
     <div class="list-group ">
       <uib-accordion close-others="true ">
-          <uib-accordion-group heading="{{movie.title}} " ng-repeat="movie in libraryService.collectionService.videos.slice(((vm.currentPage-1)*vm.itemsPerPage),
-  ((vm.currentPage)*vm.itemsPerPage)) | orderBy: 'dateNumber':vm.sortAscending | filter:search ">
+          <uib-accordion-group heading="{{movie.title}} " 
+          ng-show="(vm.search) ? movie.favourite : true"
+          ng-repeat="movie in vm.libraryService.collectionService.videos.slice(((vm.currentPage-1)*vm.itemsPerPage),
+  ((vm.currentPage)*vm.itemsPerPage)) | orderBy: 'dateNumber':vm.sortDirection">
             <a href="# " class="list-group-item ">
               <p class="list-group-item-text "><small>Autor: {{movie.author}}</small></p></h5>
               <p class="list-group-item-text "><span style="font-size:smaller; ">Data dodania: {{movie.date}}</span></p>
@@ -61,7 +66,7 @@
     </div>
   </div>
   <div>
-    <uib-pagination total-items="vm.movies.length " ng-model="vm.currentPage " max-size="vm.maxSize " class="pagination-sm" boundary-links="true"
+    <uib-pagination total-items="vm.getLibraryLength(vm.search)" ng-model="vm.currentPage " max-size="vm.maxSize " class="pagination-sm" boundary-links="true"
       rotate="false " num-pages="numPages " items-per-page="vm.itemsPerPage "></uib-pagination>
       <pre>Strona: {{vm.currentPage}} / {{numPages}}</pre>
   </div>

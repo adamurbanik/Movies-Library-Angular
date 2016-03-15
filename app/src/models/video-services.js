@@ -1,7 +1,5 @@
-/* globals console, document, Promise, window, angular*/
-'use strict';
-
 (function () {
+  'use strict';
 
   var VideoService = (function () {
    
@@ -43,5 +41,5 @@
     .module('libraryApp')
     .service('videoService', VideoService);
 
-} ());
+})();
 

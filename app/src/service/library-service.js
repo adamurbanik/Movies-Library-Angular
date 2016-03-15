@@ -88,4 +88,4 @@
     .module('libraryApp')
     .service('libraryService', LibraryService);
 
-} ());
+})();
