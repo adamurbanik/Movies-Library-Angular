@@ -2,7 +2,7 @@
   'use strict';
 
   var VideoService = (function () {
-   
+
     VideoService.$inject = ['ytService', 'vimeoService', '$q'];
 
     function VideoService(ytService, vimeoService, $q) {

@@ -41,16 +41,16 @@
       this.videos.splice(index, 1);
       this.sync();
     };
-    
+
     LibraryService.prototype.removeAll = function removeAll() {
       this.videos = [];
       this.sync();
     };
-    
+
     LibraryService.prototype.sync = function sync() {
       localStorage.setItem('videos', angular.toJson(this.videos));
     };
-    
+
     LibraryService.prototype.checkIfExists = function checkIfExists(videoID) {
       return this
         .videos
@@ -59,7 +59,7 @@
         })
         .indexOf(videoID) !== -1;
     };
-    
+
     LibraryService.prototype.getIndexByVideoID = function getIndexByVideoID(videoID) {
       return this
         .videos
@@ -68,14 +68,14 @@
         })
         .indexOf(videoID);
     };
-    
+
     LibraryService.prototype.addFavourite = function addFavourite(videoID) {
       var index = this.getIndexByVideoID(videoID);
       this.videos[index].favourite = true;
       this.videos[index].favourCount++;
       this.sync();
     };
-    
+
     LibraryService.prototype.increaseViewingCount = function increaseViewingCount(videoID) {
       var index = this.getIndexByVideoID(videoID);
       this.videos[index].viewingCount++;

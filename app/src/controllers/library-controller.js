@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  
+
   var LibraryController = (function () {
 
     LibraryController.$inject = ['libraryService', '$location', 'videoService', 'config'];
@@ -22,14 +22,14 @@
       this.movieLink = "";
       this.sortDirection = true; // true = ASC, false = DESC
       this.showModal = null;
-      
+
     }
 
     LibraryController.prototype.isActive = function isActive(route) {
       return route === this.$location.path();
     };
 
-    LibraryController.prototype.getLibraryLength = function getLibraryLength(search){
+    LibraryController.prototype.getLibraryLength = function getLibraryLength(search) {
       return this.libraryService.videos.filter(function (element) {
         return search ? element.favourite === true : element;
       }).length;
@@ -54,7 +54,7 @@
       this.url = movie.url;
       this.type = movie.type;
     };
-    
+
     LibraryController.prototype.toggleModal = function () {
       this.showModal = !this.showModal;
     };

@@ -59,7 +59,7 @@
           deferred.reject('AJAX getting youtube data failed');
         });
       return deferred.promise;
-      
+
     };
 
     return YTService;
