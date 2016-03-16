@@ -30,7 +30,7 @@
       <div 
       class="col-md-4 movieElement " 
       ng-show="(vm.search) ? movie.favourite : true"
-      ng-repeat="movie in vm.libraryService.collectionService.videos.slice(((vm.currentPage-1)*vm.itemsPerPage),
+      ng-repeat="movie in vm.libraryService.videos.slice(((vm.currentPage-1)*vm.itemsPerPage),
   ((vm.currentPage)*vm.itemsPerPage)) | orderBy: 'dateNumber':vm.sortDirection">
       <img ng-src="{{movie.thumb}} " width="300px " alt="... ">
       <h5>{{movie.title | uppercase | limitTo:30}}</h5>
@@ -52,7 +52,7 @@
       <uib-accordion close-others="true ">
           <uib-accordion-group heading="{{movie.title}} " 
           ng-show="(vm.search) ? movie.favourite : true"
-          ng-repeat="movie in vm.libraryService.collectionService.videos.slice(((vm.currentPage-1)*vm.itemsPerPage),
+          ng-repeat="movie in vm.libraryService.videos.slice(((vm.currentPage-1)*vm.itemsPerPage),
   ((vm.currentPage)*vm.itemsPerPage)) | orderBy: 'dateNumber':vm.sortDirection">
             <a href="# " class="list-group-item ">
               <p class="list-group-item-text "><small>Autor: {{movie.author}}</small></p></h5>

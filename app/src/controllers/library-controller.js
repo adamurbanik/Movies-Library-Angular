@@ -21,6 +21,8 @@
       this.movieLink = "";
       this.sortDirection = true; // true = ASC, false = DESC
       this.showModal = null;
+      console.log(this.libraryService.videos);
+      
     }
 
     LibraryController.prototype.isActive = function isActive(route) {
@@ -28,26 +30,26 @@
     };
 
     LibraryController.prototype.getLibraryLength = function getLibraryLength(search){
-      return this.libraryService.collectionService.videos.filter(function(element) {
-          return element.favourite === search;
-        }).length;
+      return this.libraryService.videos.filter(function (element) {
+        return search ? element.favourite === true : element;
+      }).length;
     };
 
     LibraryController.prototype.eraseLibrary = function eraseLibrary() {
-      this.libraryService.collectionService.removeAll();
+      this.libraryService.removeAll();
     };
 
     LibraryController.prototype.addFavourite = function addFavourite(videoID) {
-      this.libraryService.collectionService.addFavourite(videoID);
+      this.libraryService.addFavourite(videoID);
     };
 
     LibraryController.prototype.deleteMovie = function deleteMovie(videoID) {
-      this.libraryService.collectionService.removeItem(videoID);
+      this.libraryService.removeItem(videoID);
     };
 
     LibraryController.prototype.playVideo = function playVideo(movie) {
       movie.viewingCount++;
-      this.libraryService.collectionService.sync();
+      this.libraryService.sync();
       this.toggleModal();
       this.url = movie.url;
       this.type = movie.type;
@@ -84,7 +86,7 @@
         .then(onSucces, onFail);
 
       function onSucces(video) {
-        libraryService.collectionService.addItem(video);
+        libraryService.addItem(video);
       }
 
       function onFail(err) {
