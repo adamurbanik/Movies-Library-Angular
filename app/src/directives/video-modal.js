@@ -1,5 +1,6 @@
 (function () {
-  
+  'use strict';
+
   function AppVideoModal($sce) {
     return {
       templateUrl: 'tmpl/modal.html',
@@ -20,7 +21,7 @@
       }
     };
   }
-  
+
   angular
     .module('libraryApp')
     .directive('appVideoModal', AppVideoModal)

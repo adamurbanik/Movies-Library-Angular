@@ -1,5 +1,6 @@
 (function () {
-
+  'use strict';
+  
   var LibraryController = (function () {
 
     LibraryController.$inject = ['libraryService', '$location', 'videoService', 'config'];
@@ -21,7 +22,6 @@
       this.movieLink = "";
       this.sortDirection = true; // true = ASC, false = DESC
       this.showModal = null;
-      console.log(this.libraryService.videos);
       
     }
 

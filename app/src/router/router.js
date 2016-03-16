@@ -1,9 +1,11 @@
 (function () {
-  var libraryApp =  angular.module('libraryApp');
-  
+  'use strict';
+
+  var libraryApp = angular.module('libraryApp');
+
   configureRoute.$inject = ['$stateProvider', '$urlRouterProvider'];
   function configureRoute($stateProvider, $urlRouterProvider) {
-    
+
     $urlRouterProvider.otherwise("/");
 
     $stateProvider
@@ -22,7 +24,7 @@
         controllerAs: 'vm'
       });
   }
-  
+
   libraryApp.config(configureRoute);
 })();
 
