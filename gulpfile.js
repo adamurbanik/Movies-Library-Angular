@@ -37,20 +37,6 @@ gulp.task('bower', function () {
     .pipe(gulp.dest('./public/js'));
 });
 
-gulp.task('connect', function () {
-  connect.server({
-    root: 'public',
-    livereload: true
-  });
-});
-
-
-gulp.task('html', function () {
-  gulp.src('./app/**/*.html')
-    .pipe(gulp.dest('public'))
-    .pipe(connect.reload());
-});
-
 gulp.task('js', function () {
   gulp.src([
     './app/src/app.js',
@@ -61,8 +47,21 @@ gulp.task('js', function () {
     .pipe(connect.reload());
 });
 
+gulp.task('connect', function () {
+  connect.server({
+    root: 'public',
+    livereload: true
+  });
+});
+
+gulp.task('html', function () {
+  gulp.src('./app/**/*.html')
+    .pipe(gulp.dest('public'))
+    .pipe(connect.reload());
+});
+
 gulp.task('fonts', function () {
-  return gulp.src('bower_components/bootstrap/fonts/*')
+  gulp.src('bower_components/bootstrap/fonts/*')
     .pipe(gulp.dest('public/fonts'));
 });
 

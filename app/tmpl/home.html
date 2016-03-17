@@ -34,11 +34,11 @@
   | orderBy: 'dateNumber':vm.sortDirection ">
       <img ng-src="{{movie.thumb}} " width="300px " alt="... ">
       <h5>{{movie.title | uppercase | limitTo:30}}</h5>
-      <p class="topBuffer "><span style="font-size:smaller; ">Autor: {{movie.author}}</span></p>
-      <p class="topBuffer "><span style="font-size:smaller; ">Data dodania: {{movie.date}}</span></p>
-      <p class="topBuffer "><span style="font-size:smaller; ">Ulubiony: {{movie.favourite}}</span></p>
-      <p class="topBuffer "><span style="font-size:smaller; ">Ilość polubień: {{movie.favourCount}}</span></p>
-      <p class="topBuffer "><span style="font-size:smaller; ">Ilość odtworzeń: {{movie.viewingCount}}</span></p>
+      <p class="topBuffer "><span>Autor: {{movie.author}}</span></p>
+      <p class="topBuffer "><span>Data dodania: {{movie.date}}</span></p>
+      <p class="topBuffer "><span>Ulubiony: {{movie.favourite}}</span></p>
+      <p class="topBuffer "><span>Ilość polubień: {{movie.favourCount}}</span></p>
+      <p class="topBuffer "><span>Ilość odtworzeń: {{movie.viewingCount}}</span></p>
       <p class="buttonLayer ">
         <button type="button " class="btn btn-primary btn-xs " ng-click="vm.playVideo(movie) ">Obejrzyj</button>
         <button type="button " class="btn btn-primary btn-xs " ng-click="vm.deleteMovie(movie.videoID) ">Usuń</button>
@@ -56,10 +56,10 @@
   | orderBy: 'dateNumber':vm.sortDirection ">
             <a href="# " class="list-group-item ">
               <p class="list-group-item-text "><small>Autor: {{movie.author}}</small></p></h5>
-              <p class="list-group-item-text "><span style="font-size:smaller; ">Data dodania: {{movie.date}}</span></p>
-              <p class="list-group-item-text "><span style="font-size:smaller; ">Ulubiony: {{movie.favourite}}</span></p>
-              <p class="list-group-item-text "><span style="font-size:smaller; ">Ilość polubień: {{movie.favourCount}}</span></p>
-              <p class="list-group-item-text "><span style="font-size:smaller; ">Ilość odtworzeń: {{movie.viewingCount}}</span></p>
+              <p class="list-group-item-text "><span>Data dodania: {{movie.date}}</span></p>
+              <p class="list-group-item-text "><span>Ulubiony: {{movie.favourite}}</span></p>
+              <p class="list-group-item-text "><span>Ilość polubień: {{movie.favourCount}}</span></p>
+              <p class="list-group-item-text "><span>Ilość odtworzeń: {{movie.viewingCount}}</span></p>
             </a>    
           </uib-accordion-group>
       </uib-accordion>
@@ -72,7 +72,7 @@
       <pre>Strona: {{vm.currentPage}} / {{numPages}}</pre>
   </div>
 
-  <app-video-modal id="videoModal " title="Video " visible="vm.showModal " url="vm.url " type="vm.type ">
+  <app-video-modal id="videoModal " title="Video " visible="vm.showModal " vmurl="vm.url " type="vm.type ">
   </app-video-modal>
 
   

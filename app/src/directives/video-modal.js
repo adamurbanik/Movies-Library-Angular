@@ -5,10 +5,17 @@
     return {
       templateUrl: 'tmpl/modal.html',
       restrict: 'EA',
+      controller: 'VideoModalController',
+      controllerAs: 'vm',
       replace: true,
       scope: {
         visible: '=',
-        url: '=',
+        url: '=vmurl',
+        type: '='
+      },
+      bindToController:{
+        visible: '=',
+        url: '=vmurl',
         type: '='
       },
       link: function postLink(scope, element, attrs) {
