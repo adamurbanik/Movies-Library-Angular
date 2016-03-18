@@ -16,6 +16,7 @@
 
     LibraryService.prototype.createModel = function (videoData) {
       var model = {
+        type: videoData.type,
         title: videoData.title,
         date: new Date().toISOString(),
         dateNumber: Date.now(),

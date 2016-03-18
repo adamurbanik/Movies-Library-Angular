@@ -53,6 +53,7 @@
       this.toggleModal();
       this.url = movie.url;
       this.type = movie.type;
+      console.log(movie);
     };
 
     LibraryController.prototype.toggleModal = function () {

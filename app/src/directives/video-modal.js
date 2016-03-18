@@ -4,27 +4,19 @@
   function AppVideoModal($sce) {
     return {
       templateUrl: 'tmpl/modal.html',
-      restrict: 'EA',
+      restrict: 'E',
       controller: 'VideoModalController',
       controllerAs: 'vm',
       replace: true,
+      bindToController: true,
       scope: {
         visible: '=',
-        url: '=vmurl',
-        type: '='
+        url: '=',
+        type: '=',
+        title: '@'
       },
-      bindToController:{
-        visible: '=',
-        url: '=vmurl',
-        type: '='
-      },
-      link: function postLink(scope, element, attrs) {
-        scope.title = attrs.title;
-        scope.$watch('visible', function (value) {
-          if (value !== null) {
-            $(element).modal('show');
-          }
-        });
+      link: function postLink(scope, element, attrs, ctrl) {
+        ctrl.element = element;
       }
     };
   }

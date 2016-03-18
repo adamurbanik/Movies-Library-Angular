@@ -30,11 +30,12 @@
     };
 
     YTService.prototype.fetchVideo = function fetchVideo(url) {
-      var videoID = this.parseHash(url);
-      if (!videoID) {
+      if(!this.validate(url)) {
         return this.$q.reject('invalid url');
       }
-      return this.getData(videoID);
+      
+      return this.getData(this.parseHash(url));
+      
     };
 
     YTService.prototype.getData = function getData(videoID) {
@@ -43,7 +44,6 @@
         format: 'json', url: this.urlPattern.replace(':id', videoID)
       })
         .success(function (data) {
-          console.log(data);
           var videoData = {
             type: "youtube",
             videoID: videoID,
@@ -52,7 +52,6 @@
             author: data.author_name,
             url: "http://www.youtube.com/embed/" + videoID + "?autoplay=1"
           };
-          console.log(videoData);
           deferred.resolve(videoData);
         })
         .error(function () {

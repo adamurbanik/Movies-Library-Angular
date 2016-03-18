@@ -2,7 +2,11 @@
   'use strict';
 
   var VideoService = (function () {
-
+    var mikroConfig = {
+      a: 1,
+      b: 10
+    };
+    
     VideoService.$inject = ['ytService', 'vimeoService', '$q'];
 
     function VideoService(ytService, vimeoService, $q) {
