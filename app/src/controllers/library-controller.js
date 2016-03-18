@@ -23,6 +23,7 @@
       this.sortDirection = true; // true = ASC, false = DESC
       this.showModal = null;
 
+// some commments added
     }
 
     LibraryController.prototype.isActive = function isActive(route) {
@@ -111,5 +112,3 @@
     });
 
 })();
-
-
