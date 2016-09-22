@@ -1,0 +1,79 @@
+<div>
+  <button type="button" class="btn btn-default" ng-click="vm.toggleSort()">
+    <span class="glyphicon" ng-class="vm.getSortClass()"></span>
+  </button>
+  <a href=#/ class="btn btn-success" role="button" ng-disabled="vm.movies.length === 0" ng-click="vm.eraseLibrary()">Wymaż bibliotekę</a>
+  <div>
+    <form role="form">
+      <div>
+        <label for="sel1">Wybierz ilość elementów na stronie::</label>
+        <select ng-model="vm.itemsPerPage" class="form-control" id="sel1">
+          <option value="2" ng-selected="true">2</option>
+          <option value="4">4</option>
+          <option value="8">8</option>
+          <option value="10">10</option>
+        </select>
+      </div>
+    </form>
+  </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" ng-model="vm.search">Pokaż ulubione</label>
+  </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" ng-model="isList" value="">Wyświetl zawartość jako liste</label>
+  </div>
+  <input type="text" placeholder="Szukaj filmu" class="form-control" ng-model="vm.search">
+  <br>
+  <div class="row movies-list" ng-hide="isList" ">
+      <div 
+      class="col-md-4 movieElement " 
+      ng-show="(vm.search) ? movie.favourite : true "
+      ng-repeat="movie in vm.libraryService.videos.slice(((vm.currentPage-1)*vm.itemsPerPage), ((vm.currentPage)*vm.itemsPerPage))
+  | orderBy: 'dateNumber':vm.sortDirection ">
+      <img ng-src="{{movie.thumb}} " width="300px " alt="... ">
+      <h5>{{movie.title | uppercase | limitTo:30}}</h5>
+      <p class="topBuffer "><span>Autor: {{movie.author}}</span></p>
+      <p class="topBuffer "><span>Data dodania: {{movie.date}}</span></p>
+      <p class="topBuffer "><span>Ulubiony: {{movie.favourite}}</span></p>
+      <p class="topBuffer "><span>Ilość polubień: {{movie.favourCount}}</span></p>
+      <p class="topBuffer "><span>Ilość odtworzeń: {{movie.viewingCount}}</span></p>
+      <p class="buttonLayer ">
+        <button type="button " class="btn btn-primary btn-xs " ng-click="vm.playVideo(movie) ">Obejrzyj</button>
+        <button type="button " class="btn btn-primary btn-xs " ng-click="vm.deleteMovie(movie.videoID) ">Usuń</button>
+        <button type="button " class="btn btn-primary btn-xs " ng-click="vm.addFavourite(movie.videoID) ">Dodaj do ulubionych</button>
+      </p>
+    </div>
+  </div>
+
+  <div class="container " ng-show="isList ">
+    <div class="list-group ">
+      <uib-accordion close-others="true ">
+          <uib-accordion-group heading="{{movie.title}} " 
+          ng-show="(vm.search) ? movie.favourite : true "
+          ng-repeat="movie in vm.libraryService.videos.slice(((vm.currentPage-1)*vm.itemsPerPage), ((vm.currentPage)*vm.itemsPerPage))
+  | orderBy: 'dateNumber':vm.sortDirection ">
+            <a href="# " class="list-group-item ">
+              <p class="list-group-item-text "><small>Autor: {{movie.author}}</small></p></h5>
+              <p class="list-group-item-text "><span>Data dodania: {{movie.date}}</span></p>
+              <p class="list-group-item-text "><span>Ulubiony: {{movie.favourite}}</span></p>
+              <p class="list-group-item-text "><span>Ilość polubień: {{movie.favourCount}}</span></p>
+              <p class="list-group-item-text "><span>Ilość odtworzeń: {{movie.viewingCount}}</span></p>
+            </a>    
+          </uib-accordion-group>
+      </uib-accordion>
+    </div>
+  </div>
+  <div>
+    <uib-pagination total-items="vm.getLibraryLength(vm.search) " ng-model="vm.currentPage " max-size="vm.maxSize
+  " class="pagination-sm " boundary-links="true "
+      rotate="false " num-pages="numPages " items-per-page="vm.itemsPerPage "></uib-pagination>
+      <pre>Strona: {{vm.currentPage}} / {{numPages}}</pre>
+  </div>
+
+  <app-video-modal id="videoModal " title="Video " visible="vm.showModal " url="vm.url " type="vm.type ">
+  </app-video-modal>
+
+  
+</div>
